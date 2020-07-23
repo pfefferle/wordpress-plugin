@@ -1,1 +1,1 @@
-# wordpress-plugin
+# PLUGIN_NAME
