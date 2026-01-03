@@ -179,8 +179,11 @@ The following workflows run automatically:
 |----------|---------|-------------|
 | `phpcs.yml` | Push/PR | Checks coding standards |
 | `phpunit.yml` | Push/PR | Runs unit tests on PHP 7.4, 8.2, 8.3 |
+| `extract-wp-hooks.yml` | Push to trunk | Extracts actions/filters to wiki |
 | `deploy.yml` | Tag | Deploys to WordPress.org |
 | `update-assets.yml` | Push to trunk | Updates readme/assets on WordPress.org |
+
+Dependabot is configured to check for updates weekly for composer, npm, and GitHub Actions.
 
 ### Creating a Release
 
