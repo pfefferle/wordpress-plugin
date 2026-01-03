@@ -32,9 +32,9 @@ require_once __DIR__ . '/includes/class-autoloader.php';
 Autoloader::register_path( __NAMESPACE__, __DIR__ . '/includes' );
 
 // Register hooks.
-\register_activation_hook( __FILE__, array( Plugin::class, 'activate' ) );
-\register_deactivation_hook( __FILE__, array( Plugin::class, 'deactivate' ) );
-\register_uninstall_hook( __FILE__, array( Plugin::class, 'uninstall' ) );
+\register_activation_hook( __FILE__, array( PLUGIN_CLASS_PREFIX::class, 'activate' ) );
+\register_deactivation_hook( __FILE__, array( PLUGIN_CLASS_PREFIX::class, 'deactivate' ) );
+\register_uninstall_hook( __FILE__, array( PLUGIN_CLASS_PREFIX::class, 'uninstall' ) );
 
 // Initialize plugin.
-\add_action( 'plugins_loaded', array( Plugin::class, 'init' ) );
+\add_action( 'plugins_loaded', array( PLUGIN_CLASS_PREFIX::class, 'init' ) );

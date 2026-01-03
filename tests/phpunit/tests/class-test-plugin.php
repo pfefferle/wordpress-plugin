@@ -15,7 +15,7 @@ class Test_Plugin extends WP_UnitTestCase {
 	 */
 	public function test_plugin_class_exists() {
 		$this->assertTrue(
-			class_exists( 'PLUGIN_CLASS_PREFIX\Plugin' ),
+			class_exists( 'PLUGIN_CLASS_PREFIX\PLUGIN_CLASS_PREFIX' ),
 			'Plugin class should exist'
 		);
 	}

@@ -1,6 +1,6 @@
 <?php
 /**
- * Main Plugin Class.
+ * Main PLUGIN_NAME Class.
  *
  * @package PLUGIN_CLASS_PREFIX
  */
@@ -8,9 +8,9 @@
 namespace PLUGIN_CLASS_PREFIX;
 
 /**
- * Main Plugin Class.
+ * Main PLUGIN_NAME Class.
  */
-class Plugin {
+class PLUGIN_CLASS_PREFIX {
 
 	/**
 	 * Initialize the plugin.
