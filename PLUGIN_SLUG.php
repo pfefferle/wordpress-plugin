@@ -16,42 +16,25 @@
  * @package PLUGIN_CLASS_PREFIX
  */
 
-defined( 'ABSPATH' ) || exit;
+namespace PLUGIN_CLASS_PREFIX;
 
-define( 'PLUGIN_FUNCTION_PREFIX_VERSION', '1.0.0' );
-define( 'PLUGIN_FUNCTION_PREFIX_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'PLUGIN_FUNCTION_PREFIX_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'PLUGIN_FUNCTION_PREFIX_PLUGIN_FILE', __FILE__ );
+\defined( 'ABSPATH' ) || exit;
 
-/**
- * Initialize the plugin.
- *
- * @return void
- */
-function PLUGIN_FUNCTION_PREFIX_init() {
-	// Load text domain for translations.
-	load_plugin_textdomain( 'PLUGIN_SLUG', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+\define( 'PLUGIN_FUNCTION_PREFIX_VERSION', '1.0.0' );
+\define( 'PLUGIN_FUNCTION_PREFIX_PLUGIN_DIR', \plugin_dir_path( __FILE__ ) );
+\define( 'PLUGIN_FUNCTION_PREFIX_PLUGIN_URL', \plugin_dir_url( __FILE__ ) );
+\define( 'PLUGIN_FUNCTION_PREFIX_PLUGIN_FILE', __FILE__ );
 
-	// Initialize plugin functionality here.
-}
-add_action( 'plugins_loaded', 'PLUGIN_FUNCTION_PREFIX_init' );
+// Load autoloader.
+require_once __DIR__ . '/includes/class-autoloader.php';
 
-/**
- * Plugin activation hook.
- *
- * @return void
- */
-function PLUGIN_FUNCTION_PREFIX_activate() {
-	// Activation tasks here.
-}
-register_activation_hook( __FILE__, 'PLUGIN_FUNCTION_PREFIX_activate' );
+// Register autoloader.
+Autoloader::register_path( __NAMESPACE__, __DIR__ . '/includes' );
 
-/**
- * Plugin deactivation hook.
- *
- * @return void
- */
-function PLUGIN_FUNCTION_PREFIX_deactivate() {
-	// Deactivation tasks here.
-}
-register_deactivation_hook( __FILE__, 'PLUGIN_FUNCTION_PREFIX_deactivate' );
+// Register hooks.
+\register_activation_hook( __FILE__, array( PLUGIN_CLASS_PREFIX::class, 'activate' ) );
+\register_deactivation_hook( __FILE__, array( PLUGIN_CLASS_PREFIX::class, 'deactivate' ) );
+\register_uninstall_hook( __FILE__, array( PLUGIN_CLASS_PREFIX::class, 'uninstall' ) );
+
+// Initialize plugin.
+\add_action( 'plugins_loaded', array( PLUGIN_CLASS_PREFIX::class, 'init' ) );
