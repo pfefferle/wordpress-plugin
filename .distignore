@@ -10,6 +10,7 @@
 .gitattributes
 .editorconfig
 .wp-env.json
+.phpunit.result.cache
 .travis.yml
 composer.json
 composer.lock

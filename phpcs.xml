@@ -1,5 +1,23 @@
 <?xml version="1.0"?>
-<ruleset name="WordPress">
-	<description>WordPress Coding Standard.</description>
-	<rule ref="WordPress-Core"/>
+<ruleset name="PLUGIN_NAME">
+	<description>PLUGIN_NAME Coding Standards</description>
+
+	<file>.</file>
+	<exclude-pattern>\.git</exclude-pattern>
+	<exclude-pattern>\.github</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+
+	<arg value="ps"/>
+	<arg name="basepath" value="."/>
+	<arg name="colors"/>
+	<arg name="parallel" value="50"/>
+
+	<config name="testVersion" value="7.4-"/>
+	<config name="minimum_supported_wp_version" value="6.0"/>
+	<config name="text_domain" value="PLUGIN_SLUG"/>
+
+	<rule ref="PHPCompatibilityWP"/>
+	<rule ref="WordPress"/>
+	<rule ref="VariableAnalysis"/>
 </ruleset>

@@ -79,14 +79,26 @@ After running the setup script, delete it:
 rm bin/setup.sh
 ```
 
+### Prerequisites
+
+- [Composer](https://getcomposer.org/) for PHP dependencies
+- [Node.js](https://nodejs.org/) and npm for wp-env
+
+### Setup
+
+```bash
+# Install PHP dependencies
+composer install
+
+# Install npm dependencies
+npm install
+```
+
 ### Local Development Environment
 
 This plugin uses [@wordpress/env](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) for local development.
 
 ```bash
-# Install dependencies
-npm install
-
 # Start the development environment
 npm run env:start
 
@@ -99,52 +111,70 @@ npm run env:destroy
 
 The development site will be available at `http://localhost:8888` (admin: `admin`/`password`).
 
-### Configuration Files
+### Code Quality
 
-#### `.wp-env.json`
+#### PHP_CodeSniffer
 
-Configures the WordPress development environment:
-- `port`: The port for the development site (default: 8888)
-- `testsPort`: The port for the test site (default: 8889)
-- `plugins`: Plugins to install (`.` means the current directory)
-- `config`: WordPress configuration options (WP_DEBUG, etc.)
-- `mappings`: Maps the plugin directory for proper activation
+Lint your code to check for WordPress coding standards:
 
-#### `package.json`
+```bash
+# Check for coding standard violations
+composer lint
 
-Contains npm scripts and dependencies:
-- `@wordpress/env`: The WordPress development environment package
-- Scripts: `env:start`, `env:stop`, `env:destroy`
+# Automatically fix violations where possible
+composer lint:fix
+```
 
-#### `.distignore`
-
-Lists files/directories excluded from the WordPress.org plugin distribution (SVN). These files are needed for development but not for production.
-
-#### `.gitattributes`
-
-Lists files/directories excluded from git archives (`git archive`, GitHub releases). Uses `export-ignore` attribute.
-
-#### `.github/workflows/deploy.yml`
-
-Automatically deploys the plugin to WordPress.org when a new tag is pushed. Requires `SVN_USERNAME` and `SVN_PASSWORD` secrets.
-
-Key settings:
-- `SLUG`: The plugin slug on WordPress.org
-- `README_NAME`: Set to `README.md` (instead of default `readme.txt`)
-
-#### `.github/workflows/update-assets.yml`
-
-Automatically updates plugin assets (screenshots, banners, icons) and readme on WordPress.org when pushing to trunk. Uses the same secrets as deploy.yml.
+The `phpcs.xml` file configures:
+- PHP compatibility checking (PHP 7.4+)
+- WordPress coding standards
+- Minimum WordPress version (6.0)
+- Text domain validation
 
 ### Testing
 
-```bash
-# Run PHP CodeSniffer
-./vendor/bin/phpcs
+#### PHPUnit
 
-# Run PHPUnit tests
-./vendor/bin/phpunit
+Run unit tests:
+
+```bash
+# Install WordPress test suite (first time only)
+bin/install-wp-tests.sh wordpress_test root '' localhost latest
+
+# Run tests
+composer test
+
+# Or with wp-env
+composer test:wp-env
 ```
+
+Test files:
+- `phpunit.xml.dist` - PHPUnit configuration
+- `tests/bootstrap.php` - Test bootstrap file
+- `tests/class-test-*.php` - Test files
+
+### Configuration Files
+
+| File | Purpose |
+|------|---------|
+| `.wp-env.json` | wp-env configuration (ports, plugins, debug settings) |
+| `package.json` | npm scripts for wp-env |
+| `composer.json` | PHP dependencies and composer scripts |
+| `phpcs.xml` | PHP_CodeSniffer configuration |
+| `phpunit.xml.dist` | PHPUnit configuration |
+| `.distignore` | Files excluded from WordPress.org distribution |
+| `.gitattributes` | Files excluded from git archives |
+
+### GitHub Actions
+
+The following workflows run automatically:
+
+| Workflow | Trigger | Description |
+|----------|---------|-------------|
+| `phpcs.yml` | Push/PR | Checks coding standards |
+| `phpunit.yml` | Push/PR | Runs unit tests on PHP 7.4, 8.2, 8.3 |
+| `deploy.yml` | Tag | Deploys to WordPress.org |
+| `update-assets.yml` | Push to trunk | Updates readme/assets on WordPress.org |
 
 ### Creating a Release
 
