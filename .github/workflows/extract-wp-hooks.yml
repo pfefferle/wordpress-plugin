@@ -1,0 +1,23 @@
+name: Extract WordPress Hooks
+
+on:
+  push:
+    branches: [trunk, master]
+    paths:
+      - '**.php'
+  workflow_dispatch:
+
+jobs:
+  extract-hooks:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: akirk/extract-wp-hooks@1.3.0
+        with:
+          namespace: 'PLUGIN_CLASS_PREFIX'
+          wiki-directory: '../PLUGIN_SLUG.wiki'
+          github-blob-url: 'https://github.com/PLUGIN_VENDOR/PLUGIN_SLUG/blob/trunk/'
+          example-style: 'prefixed'
+          exclude-dirs: 'build,node_modules,tests,vendor'
