@@ -1,5 +1,5 @@
 {
-	"name": "pfefferle/PLUGIN_SLUG",
+	"name": "PLUGIN_VENDOR/PLUGIN_SLUG",
 	"description": "PLUGIN_DESCRIPTION",
 	"type": "wordpress-plugin",
 	"require": {
@@ -26,8 +26,7 @@
 	"license": "GPL-2.0-or-later",
 	"authors": [
 		{
-			"name": "suspended state",
-			"email": "pfefferle@gmail.com"
+			"name": "PLUGIN_AUTHOR"
 		}
 	],
 	"scripts": {

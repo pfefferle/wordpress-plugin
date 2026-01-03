@@ -58,7 +58,7 @@ To create a new plugin from this template:
 2. Run the setup script with your plugin name:
 
 ```bash
-./bin/setup.sh "My Awesome Plugin" "A plugin that does awesome things."
+./bin/setup.sh "My Awesome Plugin" "A plugin that does awesome things." "John Doe"
 ```
 
 This will replace all placeholders throughout the project:
@@ -70,6 +70,8 @@ This will replace all placeholders throughout the project:
 | `PLUGIN_FUNCTION_PREFIX` | Function prefix | my_awesome_plugin |
 | `PLUGIN_CLASS_PREFIX` | Class prefix | My_Awesome_Plugin |
 | `PLUGIN_DESCRIPTION` | Your description | A plugin that does... |
+| `PLUGIN_AUTHOR` | Author name | John Doe |
+| `PLUGIN_VENDOR` | Composer vendor namespace | johndoe |
 
 Files named `PLUGIN_SLUG.php` will be renamed to match your slug.
 

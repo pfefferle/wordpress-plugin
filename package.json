@@ -2,7 +2,7 @@
 	"name": "PLUGIN_SLUG",
 	"version": "1.0.0",
 	"description": "PLUGIN_DESCRIPTION",
-	"author": "suspended state",
+	"author": "PLUGIN_AUTHOR",
 	"license": "GPL-2.0-or-later",
 	"devDependencies": {
 		"@wordpress/env": "^10.0.0"

@@ -3,7 +3,7 @@
 # WordPress Plugin Template Setup Script
 # Similar to _s theme's setup process
 #
-# Usage: ./bin/setup.sh "My Plugin Name" "Short description of the plugin"
+# Usage: ./bin/setup.sh "My Plugin Name" ["Description"] ["Author Name"]
 #
 # This script will:
 # 1. Replace PLUGIN_NAME with your plugin name
@@ -11,19 +11,22 @@
 # 3. Replace PLUGIN_FUNCTION_PREFIX with a function prefix (lowercase, underscores)
 # 4. Replace PLUGIN_CLASS_PREFIX with a class prefix (Title_Case)
 # 5. Replace PLUGIN_DESCRIPTION with your description
-# 6. Rename files containing PLUGIN_SLUG
+# 6. Replace PLUGIN_AUTHOR with your name
+# 7. Replace PLUGIN_VENDOR with vendor namespace (for composer)
+# 8. Rename files containing PLUGIN_SLUG
 
 set -e
 
 if [ $# -lt 1 ]; then
-	echo "Usage: $0 \"Plugin Name\" [\"Plugin description\"]"
+	echo "Usage: $0 \"Plugin Name\" [\"Plugin description\"] [\"Author Name\"]"
 	echo ""
-	echo "Example: $0 \"My Awesome Plugin\" \"A plugin that does awesome things.\""
+	echo "Example: $0 \"My Awesome Plugin\" \"A plugin that does awesome things.\" \"John Doe\""
 	exit 1
 fi
 
 PLUGIN_NAME="$1"
 PLUGIN_DESCRIPTION="${2:-A WordPress plugin.}"
+PLUGIN_AUTHOR="${3:-Your Name}"
 
 # Generate slug from name (lowercase, spaces to hyphens, remove special chars)
 PLUGIN_SLUG=$(echo "$PLUGIN_NAME" | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g' | sed 's/[^a-z0-9-]//g')
@@ -34,12 +37,17 @@ PLUGIN_FUNCTION_PREFIX=$(echo "$PLUGIN_SLUG" | sed 's/-/_/g')
 # Generate class prefix (Title_Case with underscores)
 PLUGIN_CLASS_PREFIX=$(echo "$PLUGIN_NAME" | sed 's/ /_/g' | sed 's/[^a-zA-Z0-9_]//g')
 
+# Generate vendor from author (lowercase, remove special chars, spaces to nothing)
+PLUGIN_VENDOR=$(echo "$PLUGIN_AUTHOR" | tr '[:upper:]' '[:lower:]' | sed 's/ //g' | sed 's/[^a-z0-9]//g')
+
 echo "Setting up plugin with:"
 echo "  Name:            $PLUGIN_NAME"
 echo "  Slug:            $PLUGIN_SLUG"
 echo "  Function prefix: ${PLUGIN_FUNCTION_PREFIX}_"
 echo "  Class prefix:    $PLUGIN_CLASS_PREFIX"
 echo "  Description:     $PLUGIN_DESCRIPTION"
+echo "  Author:          $PLUGIN_AUTHOR"
+echo "  Vendor:          $PLUGIN_VENDOR"
 echo ""
 
 # Detect sed flavor (macOS vs GNU)
@@ -70,6 +78,8 @@ for file in $FILES; do
 		sed "${SED_INPLACE[@]}" "s/PLUGIN_FUNCTION_PREFIX/${PLUGIN_FUNCTION_PREFIX}/g" "$file" 2>/dev/null || true
 		sed "${SED_INPLACE[@]}" "s/PLUGIN_CLASS_PREFIX/${PLUGIN_CLASS_PREFIX}/g" "$file" 2>/dev/null || true
 		sed "${SED_INPLACE[@]}" "s/PLUGIN_DESCRIPTION/$PLUGIN_DESCRIPTION/g" "$file" 2>/dev/null || true
+		sed "${SED_INPLACE[@]}" "s/PLUGIN_AUTHOR/$PLUGIN_AUTHOR/g" "$file" 2>/dev/null || true
+		sed "${SED_INPLACE[@]}" "s/PLUGIN_VENDOR/$PLUGIN_VENDOR/g" "$file" 2>/dev/null || true
 		sed "${SED_INPLACE[@]}" "s/PLUGIN_SLUG/$PLUGIN_SLUG/g" "$file" 2>/dev/null || true
 	fi
 done
@@ -104,7 +114,7 @@ echo ""
 echo "Done! Your plugin '$PLUGIN_NAME' is ready."
 echo ""
 echo "Next steps:"
-echo "  1. Create your main plugin file: $PLUGIN_SLUG.php"
-echo "  2. Run 'npm install' to install dependencies"
+echo "  1. Run 'composer install' to install PHP dependencies"
+echo "  2. Run 'npm install' to install npm dependencies"
 echo "  3. Run 'npm run env:start' to start the development environment"
 echo "  4. Delete this setup script: rm bin/setup.sh"

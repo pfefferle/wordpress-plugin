@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: PLUGIN_NAME
- * Plugin URI: https://github.com/pfefferle/PLUGIN_SLUG
+ * Plugin URI: https://github.com/PLUGIN_VENDOR/PLUGIN_SLUG
  * Description: PLUGIN_DESCRIPTION
  * Version: 1.0.0
- * Author: suspended state
- * Author URI: https://notiz.blog/
+ * Author: PLUGIN_AUTHOR
+ * Author URI: https://example.com/
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: PLUGIN_SLUG
