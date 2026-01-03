@@ -5,6 +5,8 @@
  * @package PLUGIN_CLASS_PREFIX
  */
 
+define( 'PLUGIN_FUNCTION_PREFIX_TESTS_DIR', __DIR__ );
+
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
 
 if ( ! $_tests_dir ) {
@@ -23,7 +25,7 @@ require_once $_tests_dir . '/includes/functions.php';
  * Manually load the plugin being tested.
  */
 function _manually_load_plugin() {
-	require dirname( __DIR__ ) . '/PLUGIN_SLUG.php';
+	require dirname( dirname( __DIR__ ) ) . '/PLUGIN_SLUG.php';
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 

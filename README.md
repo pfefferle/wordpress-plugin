@@ -148,10 +148,14 @@ composer test
 composer test:wp-env
 ```
 
-Test files:
-- `phpunit.xml.dist` - PHPUnit configuration
-- `tests/bootstrap.php` - Test bootstrap file
-- `tests/class-test-*.php` - Test files
+Test structure:
+```
+tests/
+└── phpunit/
+    ├── bootstrap.php      # Test bootstrap
+    ├── includes/          # Test helper classes
+    └── tests/             # Test files (class-test-*.php)
+```
 
 ### Configuration Files
 
